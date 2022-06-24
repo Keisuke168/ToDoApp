@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <h1>ToDo List</h1>
+    <p th:text="${mid}"></p>
+    <form role="form" th:action="@{/addtodo}" th:object="${ToDoForm}" method="post">
+        <table>
+            <tr>
+                <td><label>ToDo: </label></td>
+                <!-- <td><input type="text" required th:field="*{title}" /></td> -->
+            </tr>
+        </table>
+        <p><input type="submit" value="登録" /></p>
+    </form>
+</body>
+</html>

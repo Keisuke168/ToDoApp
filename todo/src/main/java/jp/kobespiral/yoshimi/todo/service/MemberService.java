@@ -31,6 +31,11 @@ public class MemberService {
         return mRepo.save(m);
     }
 
+    // メンバーの存在確認（ログイン用）
+    public Boolean checkExist(String mid) {
+        return mRepo.existsById(mid);
+    }
+
     /**
      * メンバーを取得する (R)
      * 
