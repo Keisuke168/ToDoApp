@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.kobespiral.yoshimi.todo.dto.LoginForm;
 import jp.kobespiral.yoshimi.todo.dto.ToDoForm;
@@ -57,6 +56,7 @@ public class ToDoController {
     @PostMapping("/addtodo")
     String addToDo(@ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
         tService.createToDo(form);
+        form.setTitle("");
         return "todolist";
     }
 }
