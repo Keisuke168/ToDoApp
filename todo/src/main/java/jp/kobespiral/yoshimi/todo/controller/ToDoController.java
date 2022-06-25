@@ -1,5 +1,7 @@
 package jp.kobespiral.yoshimi.todo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.kobespiral.yoshimi.todo.dto.LoginForm;
 import jp.kobespiral.yoshimi.todo.dto.ToDoForm;
+import jp.kobespiral.yoshimi.todo.entity.ToDo;
 import jp.kobespiral.yoshimi.todo.service.MemberService;
 import jp.kobespiral.yoshimi.todo.service.ToDoService;
 
@@ -37,19 +40,22 @@ public class ToDoController {
     @PostMapping("/check")
     String checkUserForm(@ModelAttribute(name = "LoginForm") LoginForm form, Model model) {
         String mid = form.getMid();
+
         if (mService.checkExist(mid)) {
             ToDoForm tform = new ToDoForm();
             tform.setMid(mid);
             model.addAttribute("ToDoForm", tform);
-
             return "todolist";
         } else {
+            form.setMid("");
             return "login";
         }
     }
 
     @GetMapping("/todolist")
     String showTodoList(@ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
+        List<ToDo> todolist = tService.getToDoList(form.getMid());
+        model.addAttribute("todolist", todolist);
         return "todolist";
     }
 

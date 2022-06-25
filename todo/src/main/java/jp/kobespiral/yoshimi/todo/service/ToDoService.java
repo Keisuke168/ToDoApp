@@ -27,7 +27,7 @@ public class ToDoService {
     }
 
     public List<ToDo> getToDoList(String mid) {
-        List<ToDo> t = tRepo.findByMid(mid);
+        List<ToDo> t = tRepo.findByMidAndDone(mid, false);
         return t;
     }
 

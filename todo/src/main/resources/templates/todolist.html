@@ -9,6 +9,19 @@
 <body>
     <h1>ToDo List</h1>
     <h2>未完了</h2>
+    <p th:text="${ToDoForm.mid}"></p>
+    <table border="1">
+        <tr>
+            <th>TODO</th>
+            <th>作成日時</th>
+            <!-- <th>コマンド</th> -->
+        </tr>
+        <tr th:each="t: ${todolist}">
+            <td>[[${t.title}]]</td>
+            <td>[[${t.createdAt}]]</td>
+            <!-- <td><a th:href=@{/admin/delete/{m}(m=${m.mid})}>削除</a></td> -->
+        </tr>
+    </table>
     <h2>完了</h2>
     <form role="form" th:action="@{/addtodo}" th:object="${ToDoForm}" method="post">
         <table>
