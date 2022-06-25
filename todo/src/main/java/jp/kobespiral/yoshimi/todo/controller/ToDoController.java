@@ -39,7 +39,10 @@ public class ToDoController {
     String checkUserForm(@ModelAttribute(name = "LoginForm") LoginForm form, Model model) {
         String mid = form.getMid();
         if (mService.checkExist(mid)) {
-            model.addAttribute("mid", mid);
+            ToDoForm tform = new ToDoForm();
+            tform.setMid(mid);
+            model.addAttribute("ToDoForm", tform);
+
             return "todolist";
         } else {
             return "login";
@@ -47,9 +50,7 @@ public class ToDoController {
     }
 
     @GetMapping("/todolist")
-    String showTodoList(@ModelAttribute(name = "mid") String mid, Model model) {
-        ToDoForm form = new ToDoForm();
-        model.addAttribute("ToDoForm", form);
+    String showTodoList(@ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
         return "todolist";
     }
 

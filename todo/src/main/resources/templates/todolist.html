@@ -8,12 +8,13 @@
 </head>
 <body>
     <h1>ToDo List</h1>
-    <p th:text="${mid}"></p>
+    <h2>未完了</h2>
+    <h2>完了</h2>
     <form role="form" th:action="@{/addtodo}" th:object="${ToDoForm}" method="post">
         <table>
             <tr>
                 <td><label>ToDo: </label></td>
-                <!-- <td><input type="text" required th:field="*{title}" /></td> -->
+                <td><input type="text" required th:field="*{title}" /></td>
             </tr>
         </table>
         <p><input type="submit" value="登録" /></p>
