@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>みんなのTODO</title>
+</head>
+<body>
+    <h1>みんなのTODO</h1>
+    <h2>TODO</h2>
+    <table border="1">
+        <tr>
+            <th>TODO</th>
+            <th>作成日時</th>
+            <th>作成者</th>
+        </tr>
+        <tr th:each="t: ${allToDo}">
+            <td>[[${t.title}]]</td>
+            <td>[[${t.createdAt}]]</td>
+            <td>[[${t.name}]]</td>
+        </tr>
+    </table>
+
+    <h2>DONE</h2>
+    <table border="1">
+        <tr>
+            <th>TODO</th>
+            <th>完了日時</th>
+            <th>作成者</th>
+        </tr>
+        <tr th:each="t: ${allDone}">
+            <td>[[${t.title}]]</td>
+            <td>[[${t.doneAt}]]</td>
+            <td>[[${t.name}]]</td>
+        </tr>
+    </table>
+    <h2><a href="/login">ログインページへ</a></h2>
+</body>
+</html>

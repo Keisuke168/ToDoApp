@@ -78,4 +78,13 @@ public class ToDoController {
         tService.doneToDo(seq);
         return ("redirect:/todolist/" + mid);
     }
+
+    @GetMapping("/alltodo")
+    String allList(Model model) {
+        List<ToDo> allToDo = tService.getToDoList();
+        List<ToDo> allDone = tService.getDoneList();
+        model.addAttribute("allToDo", allToDo);
+        model.addAttribute("allDone", allDone);
+        return "alltodo";
+    }
 }
