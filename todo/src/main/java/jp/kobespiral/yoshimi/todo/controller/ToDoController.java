@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.kobespiral.yoshimi.todo.dto.LoginForm;
 import jp.kobespiral.yoshimi.todo.dto.ToDoForm;
+import jp.kobespiral.yoshimi.todo.entity.Member;
 import jp.kobespiral.yoshimi.todo.entity.ToDo;
 import jp.kobespiral.yoshimi.todo.service.MemberService;
 import jp.kobespiral.yoshimi.todo.service.ToDoService;
@@ -63,7 +64,8 @@ public class ToDoController {
 
     @PostMapping("/todolist/{mid}/addtodo")
     String addToDo(@ModelAttribute(name = "ToDoForm") ToDoForm tform, @PathVariable String mid, Model model) {
-        tService.createToDo(tform, mid);
+        Member m = mService.getMember(mid);
+        tService.createToDo(tform, mid, m.getName());
         return "redirect:/todolist/" + mid;
     }
 

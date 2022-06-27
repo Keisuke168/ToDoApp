@@ -15,8 +15,9 @@ public class ToDoService {
     @Autowired
     ToDoRepository tRepo;
 
-    public ToDo createToDo(ToDoForm form, String mid) {
+    public ToDo createToDo(ToDoForm form, String mid, String name) {
         ToDo t = form.toEntity(mid);
+        t.setName(name);
         return tRepo.save(t);
     }
 
@@ -51,7 +52,6 @@ public class ToDoService {
         t.setDone(true);
         t.setDoneAt(new Date());
         tRepo.save(t);
-
     }
 
 }

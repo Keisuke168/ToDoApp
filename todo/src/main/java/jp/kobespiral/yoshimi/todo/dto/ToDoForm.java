@@ -12,7 +12,7 @@ public class ToDoForm {
     public ToDo toEntity(String mid) {
         Date date = new Date();
 
-        ToDo t = new ToDo(null, title, mid, false, date, null);
+        ToDo t = new ToDo(null, title, mid, null, false, date, null);
         return t;
     }
 }
