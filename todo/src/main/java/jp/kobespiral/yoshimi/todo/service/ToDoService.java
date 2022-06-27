@@ -1,7 +1,7 @@
 package jp.kobespiral.yoshimi.todo.service;
 
 import java.util.List;
-
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ public class ToDoService {
     @Autowired
     ToDoRepository tRepo;
 
-    public ToDo createToDo(ToDoForm form) {
-        ToDo t = form.toEntity();
+    public ToDo createToDo(ToDoForm form, String mid) {
+        ToDo t = form.toEntity(mid);
         return tRepo.save(t);
     }
 
@@ -44,6 +44,14 @@ public class ToDoService {
     public List<ToDo> getDoneList() {
         List<ToDo> t = tRepo.findByDone(true);
         return t;
+    }
+
+    public void doneToDo(Long seq) {
+        ToDo t = getToDo(seq);
+        t.setDone(true);
+        t.setDoneAt(new Date());
+        tRepo.save(t);
+
     }
 
 }

@@ -8,9 +8,8 @@ import lombok.Data;
 @Data
 public class ToDoForm {
     String title;
-    String mid;
 
-    public ToDo toEntity() {
+    public ToDo toEntity(String mid) {
         Date date = new Date();
 
         ToDo t = new ToDo(null, title, mid, false, date, null);
