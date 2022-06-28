@@ -9,8 +9,34 @@
 <body>
     <h1>ToDo List</h1>
     <h2>未完了</h2>
+    <table border="1">
+        <tr>
+            <th>TODO</th>
+            <th>作成日時</th>
+            <th>コマンド</th>
+            <!-- <th>コマンド</th> -->
+        </tr>
+        <tr th:each="t: ${todolist}">
+            <td>[[${t.title}]]</td>
+            <td>[[${t.createdAt}]]</td>
+            <td><a th:href="@{/todolist/{mid}/donetodo/{seq}(mid=${mid}, seq=${t.seq})}">完了</a></td>
+        </tr>
+    </table>
     <h2>完了</h2>
-    <form role="form" th:action="@{/addtodo}" th:object="${ToDoForm}" method="post">
+    <table border="1">
+        <tr>
+            <th>DONE</th>
+            <th>完了日時</th>
+            <!-- <th>コマンド</th> -->
+        </tr>
+        <tr th:each="t: ${donelist}">
+            <td>[[${t.title}]]</td>
+            <td>[[${t.doneAt}]]</td>
+        </tr>
+    </table>
+
+    <h2>ToDoの作成</h2>
+    <form role="form" th:action="@{/todolist/{mid}/addtodo(mid=${mid})}" th:object="${ToDoForm}" method="post">
         <table>
             <tr>
                 <td><label>ToDo: </label></td>
@@ -19,5 +45,7 @@
         </table>
         <p><input type="submit" value="登録" /></p>
     </form>
+
+    <a href="/alltodo"><h2>みんなのTODOリスト</h2></a>
 </body>
 </html>
