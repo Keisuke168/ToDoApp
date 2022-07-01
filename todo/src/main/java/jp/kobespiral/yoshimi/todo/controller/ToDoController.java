@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
 
 import jp.kobespiral.yoshimi.todo.dto.LoginForm;
 import jp.kobespiral.yoshimi.todo.dto.ToDoForm;
@@ -51,10 +53,9 @@ public class ToDoController {
     }
 
     @GetMapping("/todolist/{mid}")
-    String showTodoList(@PathVariable String mid, Model model) {
+    String showTodoList(@PathVariable String mid, @ModelAttribute(name = "ToDoForm") ToDoForm tform, Model model) {
         List<ToDo> todolist = tService.getToDoList(mid);
         List<ToDo> donelist = tService.getDoneList(mid);
-        ToDoForm tform = new ToDoForm();
         model.addAttribute("mid", mid);
         model.addAttribute("todolist", todolist);
         model.addAttribute("donelist", donelist);
@@ -63,7 +64,12 @@ public class ToDoController {
     }
 
     @PostMapping("/todolist/{mid}/addtodo")
-    String addToDo(@ModelAttribute(name = "ToDoForm") ToDoForm tform, @PathVariable String mid, Model model) {
+    String addToDo(@Validated @ModelAttribute(name = "ToDoForm") ToDoForm tform, BindingResult bindingResult,
+            @PathVariable String mid, Model model) {
+        if (bindingResult.hasErrors()) {
+            return showTodoList(mid, tform, model);
+        }
+
         Member m = mService.getMember(mid);
         tService.createToDo(tform, mid, m.getName());
         return "redirect:/todolist/" + mid;
