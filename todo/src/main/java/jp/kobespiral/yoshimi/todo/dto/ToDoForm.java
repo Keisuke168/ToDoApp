@@ -2,14 +2,14 @@ package jp.kobespiral.yoshimi.todo.dto;
 
 import java.util.Date;
 
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import jp.kobespiral.yoshimi.todo.entity.ToDo;
 import lombok.Data;
 
 @Data
 public class ToDoForm {
-    @Pattern(regexp = "{1,64}")
+    @Size(min = 1, max = 32)
     String title;
 
     public ToDo toEntity(String mid) {

@@ -22,6 +22,11 @@ public class ToDoService {
         return tRepo.save(t);
     }
 
+    public ToDo createToDo(ToDoForm form, String mid) {
+        ToDo t = form.toEntity(mid);
+        return tRepo.save(t);
+    }
+
     // IDで指定してTODOを取得する
     public ToDo getToDo(Long seq) {
         ToDo t = tRepo.findById(seq).orElseThrow(
@@ -54,11 +59,26 @@ public class ToDoService {
     }
 
     // IDで指定したTODOをDONEに更新する
-    public void doneToDo(Long seq) {
+    public ToDo doneToDo(Long seq) {
         ToDo t = getToDo(seq);
         t.setDone(true);
         t.setDoneAt(new Date());
         tRepo.save(t);
+        return t;
+    }
+
+    // 削除する
+    public void deleteToDo(String mid, Long seq) {
+        ToDo t = getToDo(seq);
+        tRepo.delete(t);
+    }
+
+    // update
+    public ToDo updateToDo(String mid, Long seq, ToDoForm form) {
+        ToDo t = getToDo(seq);
+        t.setTitle(form.getTitle());
+        tRepo.save(t);
+        return t;
     }
 
 }
